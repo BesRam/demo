@@ -70,6 +70,19 @@ public class TicTacToe {
                 return true; // Gewinn in einer Spalte gefunden
             }
         }
+
+        // Überprüfe Diagonalen
+        if (board[0][0] != EMPTY_FIELD &&
+            board[0][0] == board[1][1] &&
+            board[1][1] == board[2][2]) {
+            return true; // Gewinn in der Hauptdiagonalen gefunden
+        }
+        if (board[0][2] != EMPTY_FIELD &&
+            board[0][2] == board[1][1] &&
+            board[1][1] == board[2][0]) {
+            return true; // Gewinn in der Nebendiagonalen gefunden
+        }
+
         return false; // Kein Gewinn gefunden
     }
 
