@@ -18,4 +18,14 @@ public class TicTacToeTest {
         TicTacToe game = new TicTacToe();
         assertEquals('X', game.getCurrentPlayer(), "Player X should start the game.");
     }
+
+    @Test
+    void testPlayersAlternateTurns() {
+        TicTacToe game = new TicTacToe();
+        game.makeMove(0, 0); // Spieler 'X' macht den ersten Zug
+        assertEquals('O', game.getCurrentPlayer(), "After player X, it should be player O's turn.");
+
+        game.makeMove(0, 1); // Spieler 'O' macht den nächsten Zug
+        assertEquals('X', game.getCurrentPlayer(), "Players should alternate turns, so it should be player X's turn again.");
+    }
 }
