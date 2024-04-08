@@ -86,4 +86,14 @@ public class TicTacToe {
         return false; // Kein Gewinn gefunden
     }
 
+    public boolean isBoardFull() {
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                if (board[row][col] == EMPTY_FIELD) {
+                    return false; // Mindestens ein Feld ist noch frei
+                }
+            }
+        }
+        return true; // Alle Felder sind besetzt
+    }
 }
