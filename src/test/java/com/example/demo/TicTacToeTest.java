@@ -69,4 +69,18 @@ public class TicTacToeTest {
 
         assertTrue(game.checkWin(), "There should be a win by column.");
     }
+
+    @Test
+    void testWinByDiagonal() {
+        TicTacToe game = new TicTacToe();
+        
+        // Spieler 'X' besetzt eine Diagonale
+        game.makeMove(0, 0); // X's Zug
+        game.makeMove(0, 1); // O's Zug
+        game.makeMove(1, 1); // X's Zug
+        game.makeMove(0, 2); // O's Zug
+        game.makeMove(2, 2); // X's Zug, vervollständigt eine Diagonale
+
+        assertTrue(game.checkWin(), "There should be a win by diagonal.");
+    }
 }
