@@ -61,6 +61,15 @@ public class TicTacToe {
                 return true; // Gewinn gefunden
             }
         }
+
+        // Überprüfe jede Spalte
+        for (int col = 0; col < 3; col++) {
+            if (board[0][col] != EMPTY_FIELD &&
+                board[0][col] == board[1][col] &&
+                board[1][col] == board[2][col]) {
+                return true; // Gewinn in einer Spalte gefunden
+            }
+        }
         return false; // Kein Gewinn gefunden
     }
 
