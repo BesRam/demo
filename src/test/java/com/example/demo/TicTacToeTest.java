@@ -83,4 +83,22 @@ public class TicTacToeTest {
 
         assertTrue(game.checkWin(), "There should be a win by diagonal.");
     }
+
+    @Test
+    void testGameIsOverWhenAllFieldsAreTaken() {
+        TicTacToe game = new TicTacToe();
+        
+        // Fülle das Brett, ohne einen Gewinner zu erzeugen
+        game.makeMove(0, 0); // X's Zug
+        game.makeMove(0, 1); // O's Zug
+        game.makeMove(0, 2); // X's Zug
+        game.makeMove(1, 1); // O's Zug
+        game.makeMove(1, 0); // X's Zug
+        game.makeMove(1, 2); // O's Zug
+        game.makeMove(2, 1); // X's Zug
+        game.makeMove(2, 0); // O's Zug
+        game.makeMove(2, 2); // X's Zug, letztes Feld wird besetzt
+
+        assertTrue(game.isBoardFull() && !game.checkWin(), "The game should be over with no winner when all fields are taken.");
+    }
 }
