@@ -28,4 +28,17 @@ public class TicTacToeTest {
         game.makeMove(0, 1); // Spieler 'O' macht den nächsten Zug
         assertEquals('X', game.getCurrentPlayer(), "Players should alternate turns, so it should be player X's turn again.");
     }
+
+    @Test
+    void testPlayerCannotTakeTakenField() {
+        TicTacToe game = new TicTacToe();
+        game.makeMove(0, 0); // Spieler 'X' besetzt das Feld (0, 0)
+
+        char playerBeforeInvalidMove = game.getCurrentPlayer();
+        game.makeMove(0, 0); // Versuch, das bereits besetzte Feld erneut zu besetzen
+        char playerAfterInvalidMove = game.getCurrentPlayer();
+
+        assertEquals(playerBeforeInvalidMove, playerAfterInvalidMove, "The player should not change after an invalid move.");
+        assertEquals('X', game.getBoardValue(0, 0), "The field value should remain unchanged after an invalid move.");
+    }
 }
