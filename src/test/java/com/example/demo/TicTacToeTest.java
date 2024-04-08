@@ -115,4 +115,22 @@ public class TicTacToeTest {
 
         assertTrue(game.checkWin() && game.getWinner() == 'X', "Player X should be declared the winner.");
     }
+
+    @Test
+    void testGameDeclaresDrawIfNoWinner() {
+        TicTacToe game = new TicTacToe();
+        
+        // Fülle das Brett, ohne einen Gewinner zu erzeugen, um ein Unentschieden zu erreichen
+        game.makeMove(0, 0); // X's Zug
+        game.makeMove(0, 1); // O's Zug
+        game.makeMove(0, 2); // X's Zug
+        game.makeMove(1, 0); // O's Zug
+        game.makeMove(1, 1); // X's Zug
+        game.makeMove(1, 2); // O's Zug
+        game.makeMove(2, 1); // X's Zug
+        game.makeMove(2, 0); // O's Zug
+        game.makeMove(2, 2); // X's Zug, letztes Feld wird besetzt, kein Gewinner
+
+        assertTrue(game.isBoardFull() && game.getWinner() == ' ', "The game should be declared a draw if there is no winner and the board is full.");
+    }
 }
