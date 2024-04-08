@@ -52,4 +52,16 @@ public class TicTacToe {
         return board[row][col];
     }
 
+    public boolean checkWin() {
+        // Überprüfe jede Reihe
+        for (int row = 0; row < 3; row++) {
+            if (board[row][0] != EMPTY_FIELD &&
+                board[row][0] == board[row][1] &&
+                board[row][1] == board[row][2]) {
+                return true; // Gewinn gefunden
+            }
+        }
+        return false; // Kein Gewinn gefunden
+    }
+
 }
