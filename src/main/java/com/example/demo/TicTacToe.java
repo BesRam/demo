@@ -96,4 +96,38 @@ public class TicTacToe {
         }
         return true; // Alle Felder sind besetzt
     }
+
+    public char getWinner() {
+        // Überprüfe jede Reihe
+        for (int row = 0; row < 3; row++) {
+            if (board[row][0] != EMPTY_FIELD &&
+                board[row][0] == board[row][1] &&
+                board[row][1] == board[row][2]) {
+                return board[row][0]; // Gewinner gefunden
+            }
+        }
+
+        // Überprüfe jede Spalte
+        for (int col = 0; col < 3; col++) {
+            if (board[0][col] != EMPTY_FIELD &&
+                board[0][col] == board[1][col] &&
+                board[1][col] == board[2][col]) {
+                return board[0][col]; // Gewinner gefunden
+            }
+        }
+
+        // Überprüfe Diagonalen
+        if (board[0][0] != EMPTY_FIELD &&
+            board[0][0] == board[1][1] &&
+            board[1][1] == board[2][2]) {
+            return board[0][0]; // Gewinner gefunden
+        }
+        if (board[0][2] != EMPTY_FIELD &&
+            board[0][2] == board[1][1] &&
+            board[1][1] == board[2][0]) {
+            return board[0][2]; // Gewinner gefunden
+        }
+
+        return EMPTY_FIELD; // Kein Gewinner oder Spiel noch nicht beendet
+    }
 }
