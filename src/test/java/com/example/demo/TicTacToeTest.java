@@ -101,4 +101,18 @@ public class TicTacToeTest {
 
         assertTrue(game.isBoardFull() && !game.checkWin(), "The game should be over with no winner when all fields are taken.");
     }
+
+    @Test
+    void testGameDeclaresCorrectWinner() {
+        TicTacToe game = new TicTacToe();
+        
+        // Spieler 'X' gewinnt
+        game.makeMove(0, 0); // X's Zug
+        game.makeMove(0, 1); // O's Zug
+        game.makeMove(1, 1); // X's Zug
+        game.makeMove(0, 2); // O's Zug
+        game.makeMove(2, 2); // X's Zug, vervollständigt eine Diagonale und gewinnt
+
+        assertTrue(game.checkWin() && game.getWinner() == 'X', "Player X should be declared the winner.");
+    }
 }
