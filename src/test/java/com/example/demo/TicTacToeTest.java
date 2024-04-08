@@ -41,4 +41,18 @@ public class TicTacToeTest {
         assertEquals(playerBeforeInvalidMove, playerAfterInvalidMove, "The player should not change after an invalid move.");
         assertEquals('X', game.getBoardValue(0, 0), "The field value should remain unchanged after an invalid move.");
     }
+
+    @Test
+    void testWinByRow() {
+        TicTacToe game = new TicTacToe();
+        
+        // Spieler 'X' besetzt eine komplette Reihe
+        game.makeMove(0, 0); // X's Zug
+        game.makeMove(1, 0); // O's Zug
+        game.makeMove(0, 1); // X's Zug
+        game.makeMove(1, 1); // O's Zug
+        game.makeMove(0, 2); // X's Zug, vervollständigt eine Reihe
+
+        assertTrue(game.checkWin(), "There should be a win by row.");
+    }
 }
