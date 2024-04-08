@@ -4,6 +4,8 @@ public class TicTacToe {
     private char[][] board;
     private char currentPlayer;
     private final char EMPTY_FIELD = ' ';
+    private final char PLAYER_X = 'X';
+    private final char PLAYER_O = 'O';
 
     public TicTacToe() {
         this.board = new char[3][3];
@@ -13,7 +15,7 @@ public class TicTacToe {
                 this.board[i][j] = EMPTY_FIELD;
             }
         }
-        this.currentPlayer = 'X'; // X beginnt immer
+        this.currentPlayer = PLAYER_X; // X beginnt immer
     }
 
     public boolean isBoardEmpty() {
@@ -30,4 +32,20 @@ public class TicTacToe {
     public char getCurrentPlayer() {
         return this.currentPlayer;
     }
+
+    public void makeMove(int row, int col) {
+        if (board[row][col] == EMPTY_FIELD) {
+            board[row][col] = currentPlayer;
+            togglePlayer(); // Wechselt den Spieler nach jedem gültigen Zug
+        }
+    }
+
+    private void togglePlayer() {
+        if (currentPlayer == PLAYER_X) {
+            currentPlayer = PLAYER_O;
+        } else {
+            currentPlayer = PLAYER_X;
+        }
+    }
+
 }
