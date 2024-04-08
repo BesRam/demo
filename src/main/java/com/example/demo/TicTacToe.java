@@ -9,24 +9,27 @@ public class TicTacToe {
 
     public TicTacToe() {
         this.board = new char[3][3];
-        // Initialisiere das Brett mit leeren Feldern
+        initializeBoard();
+        this.currentPlayer = PLAYER_X; // X starts the game
+    }
+
+    private void initializeBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 this.board[i][j] = EMPTY_FIELD;
             }
         }
-        this.currentPlayer = PLAYER_X; // X beginnt immer
     }
 
     public boolean isBoardEmpty() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (this.board[i][j] != EMPTY_FIELD) {
-                    return false; // Ein Feld ist nicht leer
+        for (char[] row : board) {
+            for (char cell : row) {
+                if (cell != EMPTY_FIELD) {
+                    return false;
                 }
             }
         }
-        return true; // Alle Felder sind leer
+        return true;
     }
 
     public char getCurrentPlayer() {
@@ -36,16 +39,12 @@ public class TicTacToe {
     public void makeMove(int row, int col) {
         if (board[row][col] == EMPTY_FIELD) {
             board[row][col] = currentPlayer;
-            togglePlayer(); // Wechselt den Spieler nach jedem gültigen Zug
+            togglePlayer();
         }
     }
 
     private void togglePlayer() {
-        if (currentPlayer == PLAYER_X) {
-            currentPlayer = PLAYER_O;
-        } else {
-            currentPlayer = PLAYER_X;
-        }
+        currentPlayer = (currentPlayer == PLAYER_X) ? PLAYER_O : PLAYER_X;
     }
 
     public char getBoardValue(int row, int col) {
@@ -53,81 +52,43 @@ public class TicTacToe {
     }
 
     public boolean checkWin() {
-        // Überprüfe jede Reihe
-        for (int row = 0; row < 3; row++) {
-            if (board[row][0] != EMPTY_FIELD &&
-                board[row][0] == board[row][1] &&
-                board[row][1] == board[row][2]) {
-                return true; // Gewinn gefunden
+        return (checkLinesForWin() || checkDiagonalsForWin());
+    }
+
+    private boolean checkLine(char a, char b, char c) {
+        return (a != EMPTY_FIELD) && (a == b) && (b == c);
+    }
+
+    private boolean checkLinesForWin() {
+        for (int i = 0; i < 3; i++) {
+            if (checkLine(board[i][0], board[i][1], board[i][2]) || // Rows
+                checkLine(board[0][i], board[1][i], board[2][i])) { // Columns
+                return true;
             }
         }
+        return false;
+    }
 
-        // Überprüfe jede Spalte
-        for (int col = 0; col < 3; col++) {
-            if (board[0][col] != EMPTY_FIELD &&
-                board[0][col] == board[1][col] &&
-                board[1][col] == board[2][col]) {
-                return true; // Gewinn in einer Spalte gefunden
-            }
-        }
-
-        // Überprüfe Diagonalen
-        if (board[0][0] != EMPTY_FIELD &&
-            board[0][0] == board[1][1] &&
-            board[1][1] == board[2][2]) {
-            return true; // Gewinn in der Hauptdiagonalen gefunden
-        }
-        if (board[0][2] != EMPTY_FIELD &&
-            board[0][2] == board[1][1] &&
-            board[1][1] == board[2][0]) {
-            return true; // Gewinn in der Nebendiagonalen gefunden
-        }
-
-        return false; // Kein Gewinn gefunden
+    private boolean checkDiagonalsForWin() {
+        return checkLine(board[0][0], board[1][1], board[2][2]) ||
+               checkLine(board[0][2], board[1][1], board[2][0]);
     }
 
     public boolean isBoardFull() {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-                if (board[row][col] == EMPTY_FIELD) {
-                    return false; // Mindestens ein Feld ist noch frei
+        for (char[] row : board) {
+            for (char cell : row) {
+                if (cell == EMPTY_FIELD) {
+                    return false;
                 }
             }
         }
-        return true; // Alle Felder sind besetzt
+        return true;
     }
 
     public char getWinner() {
-        // Überprüfe jede Reihe
-        for (int row = 0; row < 3; row++) {
-            if (board[row][0] != EMPTY_FIELD &&
-                board[row][0] == board[row][1] &&
-                board[row][1] == board[row][2]) {
-                return board[row][0]; // Gewinner gefunden
-            }
+        if (checkLinesForWin() || checkDiagonalsForWin()) {
+            return (currentPlayer == PLAYER_X) ? PLAYER_O : PLAYER_X; // Return the last player
         }
-
-        // Überprüfe jede Spalte
-        for (int col = 0; col < 3; col++) {
-            if (board[0][col] != EMPTY_FIELD &&
-                board[0][col] == board[1][col] &&
-                board[1][col] == board[2][col]) {
-                return board[0][col]; // Gewinner gefunden
-            }
-        }
-
-        // Überprüfe Diagonalen
-        if (board[0][0] != EMPTY_FIELD &&
-            board[0][0] == board[1][1] &&
-            board[1][1] == board[2][2]) {
-            return board[0][0]; // Gewinner gefunden
-        }
-        if (board[0][2] != EMPTY_FIELD &&
-            board[0][2] == board[1][1] &&
-            board[1][1] == board[2][0]) {
-            return board[0][2]; // Gewinner gefunden
-        }
-
-        return EMPTY_FIELD; // Kein Gewinner oder Spiel noch nicht beendet
+        return EMPTY_FIELD;
     }
 }
