@@ -55,4 +55,18 @@ public class TicTacToeTest {
 
         assertTrue(game.checkWin(), "There should be a win by row.");
     }
+
+    @Test
+    void testWinByColumn() {
+        TicTacToe game = new TicTacToe();
+        
+        // Spieler 'X' besetzt eine komplette Spalte
+        game.makeMove(0, 0); // X's Zug
+        game.makeMove(0, 1); // O's Zug
+        game.makeMove(1, 0); // X's Zug
+        game.makeMove(1, 1); // O's Zug
+        game.makeMove(2, 0); // X's Zug, vervollständigt eine Spalte
+
+        assertTrue(game.checkWin(), "There should be a win by column.");
+    }
 }
